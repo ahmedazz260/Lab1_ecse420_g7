@@ -8,7 +8,7 @@ CFLAGS  = -I. -lm
 #
 default: test_equality
 
-all: test_equality rectify pool
+all: test_equality rectify pool convolve
 
 # To create the executable file count we need the object files
 #
@@ -29,6 +29,12 @@ pool:  test_pooling.o lodepng.o
 
 test_pooling.o: test_pooling.c
 	$(CC) -fopenmp -c test_pooling.c -I.
+
+convolve:  test_convulation.o lodepng.o
+	$(CC) -fopenmp -o convolve test_convulation.o lodepng.o $(CFLAGS)
+
+test_convulation.o: test_convulation.c wm.h
+	$(CC) -fopenmp -c test_convulation.c -I.
 
 # To start over from scratch, type 'make clean'.  This
 # removes the executable file, as well as old .o object
