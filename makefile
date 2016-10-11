@@ -8,6 +8,8 @@ CFLAGS  = -I. -lm
 #
 default: test_equality
 
+all: test_equality rectify pool
+
 # To create the executable file count we need the object files
 #
 test_equality:  test_equality.o lodepng.o
@@ -15,6 +17,9 @@ test_equality:  test_equality.o lodepng.o
 
 rectify:  test_rectification.o lodepng.o
 	$(CC) -o rectify test_rectification.o lodepng.o $(CFLAGS)
+
+pool:  test_pooling.o lodepng.o
+	$(CC) -o pool test_pooling.o lodepng.o $(CFLAGS)
 
 # To start over from scratch, type 'make clean'.  This
 # removes the executable file, as well as old .o object
