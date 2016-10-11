@@ -12,8 +12,10 @@ int do_rectification(char* input_filename, char* output_filename,int num_t){
 
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
+
   new_image = malloc(width * height * 4 * sizeof(unsigned char));
   printf("number of threads %d\n",num_t);
+  
   // process image
   int i;
   #pragma omp parallel for num_threads(num_t)
@@ -46,14 +48,19 @@ int main(int argc, char *argv[]){
     int num_threads = atoi(argv[3]);
 
     int error = do_rectification(input_filename,output_filename,num_threads);
+    
     if(error == -1){
       printf("An error occured. ( %d )\n",error);
+
     }else{
       printf("The rectification ran with success.\n");
+
     }
 
   }else{
     printf("There is inputs missing.\n");
+
   }
+
   return 0;
 }
