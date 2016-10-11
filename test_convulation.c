@@ -38,9 +38,8 @@ int do_convolution(char* input_filename, char* output_filename,int num_t){
         int ii,jj;
         for(ii = 0;ii<3;ii++){
             for(jj = 0; jj<3;jj++){
-		currentWF = w[ii][jj];
-                
-		if(j==1 && i == 1) printf("this is the weight for ii %d and jj %d %f\n",ii,jj,currentWF);
+              currentWF = w[ii][jj];
+                if(j==1 && i == 1) printf("this is the weight for ii %d and jj %d %f\n",ii,jj,currentWF);
                 value += ((float)image[4*width*(i+ii-1) + 4*(j+jj-1) + k]) * currentWF;
                 if(i==1 && j==1) printf("this is the current value %d \n",value);
             }
