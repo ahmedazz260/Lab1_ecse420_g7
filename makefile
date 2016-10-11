@@ -25,10 +25,10 @@ lodepng.o: lodepng.c
 	$(CC)  -c lodepng.c
 
 pool:  test_pooling.o lodepng.o
-	$(CC) -o pool test_pooling.o lodepng.o $(CFLAGS)
+	$(CC) -fopenmp -o pool test_pooling.o lodepng.o $(CFLAGS)
 
-pool.o: pool.c
-	$(CC) -fopenmp -c pool.c -I.
+test_pooling.o: test_pooling.c
+	$(CC) -fopenmp -c test_pooling.c -I.
 
 # To start over from scratch, type 'make clean'.  This
 # removes the executable file, as well as old .o object

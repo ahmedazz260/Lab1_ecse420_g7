@@ -2,6 +2,7 @@
 #include "lodepng.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <omp.h>
 
 int do_pooling(char* input_filename, char* output_filename,int num_t)
 {
@@ -20,7 +21,7 @@ int do_pooling(char* input_filename, char* output_filename,int num_t)
   long unsigned size = width * height * 4 * sizeof(unsigned char);
   long unsigned new_size = new_width * new_height * 4 * sizeof(unsigned char);
   new_image = malloc(new_size);
-
+  printf("number of threads %d\n",num_t);
   printf(" old_height %d, old_width %d,old size %lu \n",height,width,size);
   printf(" new_height %d, new_width %d,new size %lu \n",new_height,new_width,new_size);
   // process image
@@ -64,7 +65,7 @@ int main(int argc, char *argv[])
     }
 
   }else{
-    printf("There is inputs missing.\n");
+    printf("There are inputs missing.\n");
   }
   return 0;
 }
