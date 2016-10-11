@@ -17,7 +17,7 @@ int do_pooling(char* input_filename, char* output_filename,int num_threads)
   new_height = height/2;
 
   // process image
-  unsigned char value;
+  unsigned char max;
   for (int i = 0; i < height; i+=2) {
     for (int j = 0; j < width; j+=2) {
       for(int k = 0;k< 4;k++){
