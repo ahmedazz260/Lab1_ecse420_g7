@@ -22,9 +22,13 @@ int do_pooling(char* input_filename, char* output_filename,int num_threads)
     for (int j = 0; j < width; j+=2) {
       for(int k = 0;k< 4;k++){
         max = image[4*width*i + 4*j + k];
+        if(i == j && j == k) printf("max1: %d\n",max );
         if(image[4*width*(i+1) + 4*j + k]>max) max = image[4*width*(i+1) + 4*j + k];
+        if(i == j && j == k) printf("max2: %d\n",max );
         if(image[4*width*(i+1) + 4*(j+1) + k]>max) max = image[4*width*(i+1) + 4*(j+1) + k];
+        if(i == j && j == k) printf("max3: %d\n",max );
         if(image[4*width*i + 4*(j+1) + k]>max) max = image[4*width*i + 4*(j+1) + k];
+        if(i == j && j == k) printf("max4: %d\n",max );
         new_image[2*width*i + 2*j + k] = max;
       }
     }
