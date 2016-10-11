@@ -5,8 +5,7 @@
 #include <omp.h>
 
 
-int do_rectification(char* input_filename, char* output_filename,int num_t)
-{
+int do_rectification(char* input_filename, char* output_filename,int num_t){
   unsigned error;
   unsigned char *image, *new_image;
   unsigned width, height;
@@ -16,12 +15,14 @@ int do_rectification(char* input_filename, char* output_filename,int num_t)
   new_image = malloc(width * height * 4 * sizeof(unsigned char));
   printf("number of threads %d\n",num_t);
   // process image
-  unsigned char value;
+  int i;
   #pragma omp parallel for num_threads(num_t)
-  for (int i = 0; i < height; i++) {
-    printf("thread %d processed element %d\n", omp_get_thread_num(), i);
-    for (int j = 0; j < width; j++) { 
-      for(int k = 0;k< 4;k++){
+  for (i = 0; i < height; i++) {
+    int j,k;
+    unsigned char value;
+    //printf("thread %d processed element %d\n", omp_get_thread_num(), i);
+    for (j = 0; j < width; j++) { 
+      for(k = 0;k< 4;k++){
         value = image[4*width*i + 4*j + k];
         if(value<127) value = 127;
         new_image[4*width*i + 4*j + k] = value;
@@ -37,8 +38,7 @@ int do_rectification(char* input_filename, char* output_filename,int num_t)
   return 0;
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
 
   if ( argc >= 4 ){
     char* input_filename = argv[1];

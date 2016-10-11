@@ -18,6 +18,12 @@ test_equality:  test_equality.o lodepng.o
 rectify:  test_rectification.o lodepng.o
 	$(CC) -fopenmp -o rectify test_rectification.o lodepng.o $(CFLAGS)
 
+test_rectification.o: test_rectification.c
+	$(CC) -fopenmp -c test_rectification.c -I.
+
+lodepng.o: lodepng.c
+	$(CC)  -c lodepng.c
+
 pool:  test_pooling.o lodepng.o
 	$(CC) -o pool test_pooling.o lodepng.o $(CFLAGS)
 

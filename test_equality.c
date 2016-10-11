@@ -21,7 +21,8 @@ float get_MSE(char* input_filename_1, char* input_filename_2)
   // process image
   float im1, im2, diff, sum, MSE;
   sum = 0;
-  for (int i = 0; i < width1 * height1 * 4; i++) {
+  int i;
+  for (i = 0; i < width1 * height1 * 4; i++) {
     im1 = (float)image1[i];
     im2 = (float)image2[i];
     diff = im1 - im2;

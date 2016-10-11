@@ -25,9 +25,10 @@ int do_pooling(char* input_filename, char* output_filename,int num_threads)
   printf(" new_height %d, new_width %d,new size %lu \n",new_height,new_width,new_size);
   // process image
   unsigned char max;
-  for (int i = 0; i < height; i+=2) {
-    for (int j = 0; j < width; j+=2) {
-      for(int k = 0;k< 4;k++){
+  int i,j,k;
+  for (i = 0; i < height; i+=2) {
+    for (j = 0; j < width; j+=2) {
+      for(k = 0;k< 4;k++){
         max = image[4*width*i + 4*j + k];
         if(image[4*width*(i+1) + 4*j + k]>max) max = image[4*width*(i+1) + 4*j + k];
         if(image[4*width*(i+1) + 4*(j+1) + k]>max) max = image[4*width*(i+1) + 4*(j+1) + k];
