@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int do_pooling(char* input_filename, char* output_filename,int num_threads)
+int do_pooling(char* input_filename, char* output_filename,int num_t)
 {
   unsigned error;
   unsigned char *image, *new_image;
@@ -24,9 +24,12 @@ int do_pooling(char* input_filename, char* output_filename,int num_threads)
   printf(" old_height %d, old_width %d,old size %lu \n",height,width,size);
   printf(" new_height %d, new_width %d,new size %lu \n",new_height,new_width,new_size);
   // process image
-  unsigned char max;
-  int i,j,k;
+  int i;
+  #pragma omp parallel for num_threads(num_t)
   for (i = 0; i < height; i+=2) {
+    int j,k;
+    unsigned char max;
+    if(i%10 == 0)printf("thread %d processed element %d\n", omp_get_thread_num(), i);
     for (j = 0; j < width; j+=2) {
       for(k = 0;k< 4;k++){
         max = image[4*width*i + 4*j + k];
