@@ -16,7 +16,7 @@ test_equality:  test_equality.o lodepng.o
 	$(CC) -o test_equality test_equality.o lodepng.o $(CFLAGS)
 
 rectify:  test_rectification.o lodepng.o
-	$(CC) -o rectify test_rectification.o lodepng.o $(CFLAGS)
+	$(CC) -fopenmp -o rectify test_rectification.o lodepng.o $(CFLAGS)
 
 pool:  test_pooling.o lodepng.o
 	$(CC) -o pool test_pooling.o lodepng.o $(CFLAGS)

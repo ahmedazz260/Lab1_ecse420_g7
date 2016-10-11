@@ -5,7 +5,7 @@
 #include <omp.h>
 
 
-int do_rectification(char* input_filename, char* output_filename,int num_threads)
+int do_rectification(char* input_filename, char* output_filename,int num_t)
 {
   unsigned error;
   unsigned char *image, *new_image;
@@ -14,11 +14,12 @@ int do_rectification(char* input_filename, char* output_filename,int num_threads
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
   new_image = malloc(width * height * 4 * sizeof(unsigned char));
-
+  printf("number of threads %d\n",num_t);
   // process image
   unsigned char value;
-  #pragma omp parallel for num_threads(num_threads)
+  #pragma omp parallel for num_threads(num_t)
   for (int i = 0; i < height; i++) {
+    printf("thread %d processed element %d\n", omp_get_thread_num(), i);
     for (int j = 0; j < width; j++) { 
       for(int k = 0;k< 4;k++){
         value = image[4*width*i + 4*j + k];
