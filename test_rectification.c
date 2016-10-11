@@ -2,6 +2,8 @@
 #include "lodepng.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <omp.h>
+
 
 int do_rectification(char* input_filename, char* output_filename,int num_threads)
 {
@@ -15,6 +17,7 @@ int do_rectification(char* input_filename, char* output_filename,int num_threads
 
   // process image
   unsigned char value;
+  #pragma omp parallel for num_threads(num_threads)
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) { 
       for(int k = 0;k< 4;k++){
