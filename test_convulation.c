@@ -31,25 +31,27 @@ int do_convolution(char* input_filename, char* output_filename,int num_t){
   for (i = 1; i < height-1; i++) {
     int j,k;
     float currentWF;
-    unsigned char value;
+    float value;
     for (j = 1; j < width-1; j++) {
-      for(k = 0;k< 4;k++){
+      for(k = 0;k< 3;k++){
         value = 0;
         int ii,jj;
         for(ii = 0;ii<3;ii++){
             for(jj = 0; jj<3;jj++){
               currentWF = w[ii][jj];
-                if(j==1 && i == 1) printf("this is the weight for ii %d and jj %d %f\n",ii,jj,currentWF);
+                if(j==1 && i == 1) printf("this is the weight for ii %d and jj %d: %f\n The actual element is: %d and we are taking the value from %d \n",ii,jj,currentWF,image[4*width*i + 4*j + k],image[4*width*(i+ii-1) + 4*(j+jj-1) + k]);
                 value += ((float)image[4*width*(i+ii-1) + 4*(j+jj-1) + k]) * currentWF;
-                if(i==1 && j==1) printf("this is the current value %d \n",value);
+                if(i==1 && j==1) printf("this is the current value %f \n",value);
             }
         }
+        if(i==1 && j==1) printf("this is the final value %f \n",value);
         if(value<0) value = 0;
         if(value>255) value = 255;
-        new_image[4*new_width*(i-1) + 4*(j-1) + k] = value;
+        new_image[4*new_width*(i-1) + 4*(j-1) + k] = (unsigned char) value;
       }
+      new_image[4*new_width*(i-1) + 4*(j-1) + 3] = 255;
     }
-    printf("thread %d processed element %d\n", omp_get_thread_num(), i);
+    //printf("thread %d processed element %d\n", omp_get_thread_num(), i);
   }
   lodepng_encode32_file(output_filename, new_image, new_width, new_height);
 
