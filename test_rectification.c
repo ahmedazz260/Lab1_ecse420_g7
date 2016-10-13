@@ -33,7 +33,7 @@ int do_rectification(char* input_filename, char* output_filename, int num_t){
     
     for (j = 0; j < width; j++) { 
       
-      for(k = 0;k< 4;k++){
+      for(k = 0; k < 4;k++){
         
         value = image[4*width*i + 4*j + k];
         
