@@ -30,11 +30,11 @@ pool:  test_pooling.o lodepng.o
 test_pooling.o: test_pooling.c
 	$(CC) -fopenmp -c test_pooling.c -I.
 
-convolve:  test_convulation.o lodepng.o
-	$(CC) -fopenmp -o convolve test_convulation.o lodepng.o $(CFLAGS)
+convolve:  test_convolution.o lodepng.o
+	$(CC) -fopenmp -o convolve test_convolution.o lodepng.o $(CFLAGS)
 
-test_convulation.o: test_convulation.c wm.h
-	$(CC) -fopenmp -c test_convulation.c -I.
+test_convolution.o: test_convolution.c wm.h
+	$(CC) -fopenmp -c test_convolution.c -I.
 
 # To start over from scratch, type 'make clean'.  This
 # removes the executable file, as well as old .o object

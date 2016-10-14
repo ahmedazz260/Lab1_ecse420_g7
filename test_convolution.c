@@ -79,7 +79,7 @@ int do_convolution(char* input_filename, char* output_filename,int num_t){
       new_image[4*new_width*(i-1) + 4*(j-1) + 3] = 255;
     }
 
-    printf("thread %d processed element %d\n", omp_get_thread_num(), i);
+    // printf("thread %d processed element %d\n", omp_get_thread_num(), i);
   }
 
   
