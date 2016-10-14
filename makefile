@@ -6,7 +6,7 @@ CFLAGS  = -I. -lm
 # you can name this target entry anything, but "default" or "all"
 # are the most commonly used names by convention
 #
-default: test_equality
+default: all
 
 all: test_equality rectify pool convolve
 
