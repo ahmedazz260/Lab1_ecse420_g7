@@ -21,6 +21,12 @@ rectify:  test_rectification.o lodepng.o
 test_rectification.o: test_rectification.c
 	$(CC) -fopenmp -c test_rectification.c -I.
 
+rectify_MPI:  test_rectification_MPI.o lodepng.o
+	$(CC) -fopenmp -o rectify test_rectification_MPI.o lodepng.o $(CFLAGS)
+
+test_rectification_MPI.o: test_rectification_MPI.c
+	$(CC) -fopenmp -c test_rectification_MPI.c -I.
+
 lodepng.o: lodepng.c
 	$(CC)  -c lodepng.c
 
