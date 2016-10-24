@@ -6,7 +6,7 @@
 #include <sys/time.h>
 
 
-int do_rectification(char* input_filename, char* output_filename, int num_t){
+int do_rectification(char* input_filename, char* output_filename){
   unsigned error;
   unsigned char *image, *new_image;
   unsigned width, height;
@@ -18,13 +18,23 @@ int do_rectification(char* input_filename, char* output_filename, int num_t){
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
 
   new_image = malloc(width * height * 4 * sizeof(unsigned char));
-  printf("Number of threads %d\n", num_t);
   
   gettimeofday(&start_time, NULL);
   // process image
   int i;
 
-  #pragma omp parallel for num_threads(num_t)
+  // Initialize the MPI environment
+  MPI_Init(&argc, &argv);
+
+  // Get the number of processes
+  int size;
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+  // Get the rank of the process
+  int rank;
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  // Print off a hello world message
+  printf("Hello, world! (From rank %d out of %d)\n",rank, size);
   for (i = 0; i < height; i++) {
     
     int j,k;
@@ -44,6 +54,7 @@ int do_rectification(char* input_filename, char* output_filename, int num_t){
       }
     }
   }
+  MPI_Finalize();
 
   gettimeofday(&end_time, NULL);
 
@@ -61,12 +72,11 @@ int do_rectification(char* input_filename, char* output_filename, int num_t){
 
 int main(int argc, char *argv[]){
 
-  if ( argc >= 4 ){
+  if ( argc >= 3 ){
     char* input_filename = argv[1];
     char* output_filename = argv[2];
-    int num_threads = atoi(argv[3]);
 
-    int error = do_rectification(input_filename,output_filename,num_threads);
+    int error = do_rectification(input_filename,output_filename);
     
     if(error == -1){
       printf("An error occured. ( %d )\n",error);
